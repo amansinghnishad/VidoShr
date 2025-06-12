@@ -1,0 +1,224 @@
+/* Modern Dashboard Styles */
+.dashboard-main {
+  padding: 24px;
+  background: var(--bg);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.dashboard-welcome {
+  font-family: "Playfair Display", serif;
+  font-size: 48px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboard-subtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.dashboard-filter-container {
+  background: var(--bg-light);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 32px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.dashboard-filter-container:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary);
+}
+
+.dashboard-topic {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dashboard-span {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dashboard-span:hover {
+  color: var(--secondary);
+  transform: translateX(4px);
+}
+
+/* Video Cards Integration with Dashboard */
+.dashboard-filter-container .video-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-filter-container .video-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.dashboard-filter-container .video-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Legacy grid support */
+.dashboard-video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+/* Default card styles */
+.default-card {
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.default-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.default-card:hover::before {
+  opacity: 1;
+  transform: rotate(45deg) translate(50%, 50%);
+}
+
+.default-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.default-card-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  z-index: 1;
+  position: relative;
+}
+
+.default-card-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  opacity: 0.8;
+  z-index: 1;
+  position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .dashboard-video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .dashboard-welcome {
+    font-size: 36px;
+  }
+
+  .dashboard-topic {
+    font-size: 28px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    padding: 16px;
+  }
+
+  .dashboard-header {
+    padding: 24px 16px;
+    margin-bottom: 24px;
+  }
+
+  .dashboard-welcome {
+    font-size: 28px;
+  }
+
+  .dashboard-subtitle {
+    font-size: 16px;
+  }
+
+  .dashboard-filter-container {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .dashboard-topic {
+    font-size: 24px;
+  }
+
+  .dashboard-video-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .dashboard-filter-container {
+    margin: 8px;
+    padding: 16px;
+  }
+
+  .dashboard-filter-container .video-cards-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

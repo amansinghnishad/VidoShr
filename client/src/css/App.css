@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  position: relative;
+}
+
+.app-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  margin-left: 0;
+  margin-top: 72px; /* Account for fixed navbar height */
+  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Adjust main content based on sidebar state */
+@media (min-width: 769px) {
+  .app-frame {
+    margin-left: 70px; /* Account for collapsed sidebar width */
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* When sidebar is expanded, adjust margin */
+  body.sidebar-expanded .app-frame {
+    margin-left: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-frame {
+    margin-left: 0; /* No margin on mobile */
+  }
+}
+
+/* Theme classes */
+.dark-theme {
+  --bg: #0a0e1a;
+  --bg-light: #12172b;
+  --bg-card: #1a1f35;
+  --primary: #7c3aed;
+  --secondary: #ec4899;
+  --accent: #06d6a0;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #334155;
+  --glass: rgba(255, 255, 255, 0.15);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.light-theme {
+  --bg: #fefefe;
+  --bg-light: #f8fafc;
+  --bg-card: #ffffff;
+  --primary: #7c3aed;
+  --secondary: #ec4899;
+  --accent: #06d6a0;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --glass: rgba(255, 255, 255, 0.8);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+/* Apply theme variables */
+.app-container {
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+.app-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient);
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* =============================================================================
+   THEME AND LAYOUT STYLES
+   ============================================================================= */
+
+/* Modern button styles */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+/* Glass morphism effects */
+.glass-effect {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-frame {
+    margin-left: 0 !important;
+  }
+}

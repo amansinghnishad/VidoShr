@@ -1,0 +1,136 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 300;
+  box-sizing: border-box;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar-menu-btn {
+  display: none !important;
+  color: var(--text-primary) !important;
+}
+
+@media (max-width: 768px) {
+  .navbar-menu-btn {
+    display: flex !important;
+  }
+}
+
+.navbar-logo-mobile {
+  display: none;
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-greeting {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.greeting-text {
+  font-weight: 600;
+}
+
+.greeting-emoji {
+  font-size: 20px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-notifications {
+  display: flex;
+  align-items: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navbar-notifications:hover {
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+.navbar-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  color: var(--primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navbar-button:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+
+  .navbar-menu-btn {
+    display: flex !important;
+  }
+
+  .navbar-logo-mobile {
+    display: block;
+  }
+
+  .navbar-greeting {
+    font-size: 16px;
+  }
+
+  .greeting-text {
+    display: none;
+  }
+
+  .navbar-right {
+    gap: 12px;
+  }
+  .navbar-button span {
+    display: none;
+  }
+}
