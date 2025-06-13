@@ -1,8 +1,9 @@
 .favorites-main {
   padding: 24px;
-  min-height: calc(100vh - 80px);
+  min-height: 100%;
   background: var(--bg);
-  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .favorites-header {

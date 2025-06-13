@@ -78,7 +78,7 @@ const Dashboard = () => {
         </div>{" "}
         <div className="video-cards-container">
           {mindfulVideos.map((video, index) => (
-            <VideoCards key={index} data={video} />
+            <VideoCards key={index} data={video} index={index} />
           ))}
         </div>
       </div>
