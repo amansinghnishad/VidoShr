@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "../css/Search.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -182,18 +183,48 @@ const Search = () => {
   };
 
   const filteredResults = getFilteredResults();
-
   return (
-    <div className="search-main">
+    <motion.div
+      className="search-main"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="search-header">
-        <h1 className="search-title">🔍 Discover Content</h1>
-        <p className="search-subtitle">
+        <motion.h1
+          className="search-title"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          🔍 Discover Content
+        </motion.h1>
+        <motion.p
+          className="search-subtitle"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           Find videos that nurture your mind and soul
-        </p>
+        </motion.p>
 
-        <div className="search-bar-container">
+        <motion.div
+          className="search-bar-container"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            delay: 0.3,
+            type: "spring",
+            stiffness: 400,
+            damping: 17,
+          }}
+        >
           <div className="search-bar-wrapper">
-            <div className="search-bar">
+            <motion.div
+              className="search-bar"
+              whileFocus={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
               <SearchOutlinedIcon className="search-icon" />
               <input
                 type="text"
@@ -202,109 +233,223 @@ const Search = () => {
                 value={searched}
                 onChange={(e) => handleChange(e)}
               />
-              {isSearching && <div className="search-loading-spinner"></div>}
-            </div>
+              <AnimatePresence>
+                {isSearching && (
+                  <motion.div
+                    className="search-loading-spinner"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0 }}
+                  />
+                )}
+              </AnimatePresence>
+            </motion.div>
 
             <div className="search-filters">
-              {filters.map((filter) => (
-                <button
+              {filters.map((filter, index) => (
+                <motion.button
                   key={filter.id}
                   className={`filter-chip ${
                     selectedFilter === filter.id ? "active" : ""
                   }`}
                   onClick={() => handleFilterChange(filter.id)}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.4 + index * 0.1,
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 17,
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -2,
+                    transition: { type: "spring", stiffness: 400, damping: 17 },
+                  }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <span className="filter-icon">{filter.icon}</span>
                   <span className="filter-label">{filter.label}</span>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {searched === "" && (
-          <div className="trending-searches">
-            <div className="trending-header">
-              <TrendingUpIcon className="trending-icon" />
-              <span>Trending searches</span>
-            </div>
-            <div className="trending-tags">
-              {trendingSearches.map((search, index) => (
-                <button
-                  key={index}
-                  className="trending-tag"
-                  onClick={() => {
-                    setSearched(search);
-                    setIsSearching(true);
-                    setShowResults(false);
-                    setTimeout(() => {
-                      setIsSearching(false);
-                      setShowResults(true);
-                    }, 600);
-                  }}
-                >
-                  {search}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {searched === "" && (
+            <motion.div
+              className="trending-searches"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ delay: 0.5 }}
+            >
+              <motion.div
+                className="trending-header"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <TrendingUpIcon className="trending-icon" />
+                <span>Trending searches</span>
+              </motion.div>
+              <div className="trending-tags">
+                {trendingSearches.map((search, index) => (
+                  <motion.button
+                    key={index}
+                    className="trending-tag"
+                    onClick={() => {
+                      setSearched(search);
+                      setIsSearching(true);
+                      setShowResults(false);
+                      setTimeout(() => {
+                        setIsSearching(false);
+                        setShowResults(true);
+                      }, 600);
+                    }}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      delay: 0.7 + index * 0.05,
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 17,
+                    }}
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: "var(--primary)",
+                      color: "white",
+                      transition: {
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 17,
+                      },
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {search}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>{" "}
       {searched === "" ? (
-        <div className="search-categories">
-          <h2 className="search-heading">✨ Browse Categories</h2>
+        <motion.div
+          className="search-categories"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <motion.h2
+            className="search-heading"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            ✨ Browse Categories
+          </motion.h2>
           <div className="search-browse-all">
-            {Category.map((category) => (
+            {Category.map((category, index) => (
               <Link
                 to={`/showvideos/${category.name.toLowerCase()}`}
                 key={category.name}
                 style={{ textDecoration: "none" }}
               >
-                <DefaultCard category={category} />
+                <DefaultCard category={category} index={index} />
               </Link>
             ))}
           </div>
-        </div>
+        </motion.div>
       ) : isSearching ? (
-        <div className="search-results-loading">
-          <div className="search-results-loading-spinner"></div>
-          <div className="search-results-loading-text">
+        <motion.div
+          className="search-results-loading"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+        >
+          <motion.div
+            className="search-results-loading-spinner"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            className="search-results-loading-text"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
             Searching for "{searched}"...
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       ) : showResults ? (
-        <div className="search-results">
-          <div className="search-results-header">
+        <motion.div
+          className="search-results"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        >
+          <motion.div
+            className="search-results-header"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+          >
             <h2 className="search-results-title">
               Search results for "{searched}"
             </h2>
-            <div className="search-results-count">
+            <motion.div
+              className="search-results-count"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               Found {filteredResults.length} results
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {filteredResults.length > 0 ? (
-            <div className="video-cards-container">
+            <motion.div
+              className="video-cards-container"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
               {filteredResults.map((result, index) => (
-                <VideoCards key={index} data={result} />
+                <VideoCards key={index} data={result} index={index} />
               ))}
-            </div>
+            </motion.div>
           ) : (
-            <div className="no-results">
-              <div className="no-results-icon">🌸</div>
+            <motion.div
+              className="no-results"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <motion.div
+                className="no-results-icon"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                🌸
+              </motion.div>
               <h3>No results found</h3>
               <p>Try adjusting your filters or search for something else</p>
-              <button
+              <motion.button
                 className="clear-search-btn"
                 onClick={() => setSearched("")}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Browse Categories
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 

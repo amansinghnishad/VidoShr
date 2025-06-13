@@ -2,8 +2,9 @@
 .dashboard-main {
   padding: 24px;
   background: var(--bg);
-  min-height: 100vh;
-  overflow-y: auto;
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .dashboard-header {

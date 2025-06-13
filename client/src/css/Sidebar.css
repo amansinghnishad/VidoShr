@@ -24,17 +24,17 @@
   left: 0;
   width: 280px;
   height: calc(100vh - 72px); /* Adjust height to account for navbar */
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border-right: 1px solid var(--border);
+  background: var(--glass-strong);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-right: 1px solid var(--glass-border);
   z-index: 200;
   display: flex;
   flex-direction: column;
-  transform: translateX(-100%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--text-muted) transparent;
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Desktop collapsed state */
@@ -42,11 +42,11 @@
   .sidebar {
     position: fixed;
     top: 72px; /* Position below navbar */
-    transform: translateX(0);
     height: calc(100vh - 72px); /* Adjust height for navbar */
     border-right: 1px solid var(--border);
     border-top: none;
     width: 70px; /* Collapsed width */
+    /* Remove transform override to let Framer Motion handle it */
   }
 
   .sidebar.expanded {
@@ -207,17 +207,20 @@
   text-decoration: none;
   color: var(--text-secondary);
   font-weight: 500;
-  transition: all 0.2s ease;
   position: relative;
   border-radius: 0;
   white-space: nowrap;
   overflow: hidden;
+  transform: translateZ(0); /* Enable GPU acceleration */
 }
 
 .sidebar-nav-item:hover {
   background: var(--glass);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   color: var(--text-primary);
-  transform: translateX(4px);
+  border-radius: 12px;
+  margin: 0 8px;
 }
 
 .sidebar-nav-item.active {
@@ -251,7 +254,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 1;
-  transition: opacity 0.3s ease;
 }
 
 /* Collapsed state adjustments for desktop */
@@ -303,19 +305,21 @@
   gap: 16px;
   width: 100%;
   padding: 12px 16px;
-  background: transparent;
-  border: 1px solid var(--border);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
   border-radius: 12px;
   color: var(--text-secondary);
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
   white-space: nowrap;
   overflow: hidden;
+  transform: translateZ(0); /* Enable GPU acceleration */
 }
 
 .sidebar-logout-btn:hover {
-  background: var(--glass);
+  background: var(--glass-strong);
   color: var(--text-primary);
   border-color: var(--primary);
 }
@@ -378,46 +382,6 @@
   }
 }
 
-/* Animation for nav items */
-.sidebar-nav-item {
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideInLeft 0.3s ease forwards;
-}
-
-@keyframes slideInLeft {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Staggered animation delay for nav items */
-.sidebar-section:nth-child(1) .sidebar-nav-item:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.sidebar-section:nth-child(1) .sidebar-nav-item:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.sidebar-section:nth-child(1) .sidebar-nav-item:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.sidebar-section:nth-child(2) .sidebar-nav-item:nth-child(1) {
-  animation-delay: 0.4s;
-}
-.sidebar-section:nth-child(2) .sidebar-nav-item:nth-child(2) {
-  animation-delay: 0.5s;
-}
-.sidebar-section:nth-child(2) .sidebar-nav-item:nth-child(3) {
-  animation-delay: 0.6s;
-}
-.sidebar-section:nth-child(3) .sidebar-nav-item:nth-child(1) {
-  animation-delay: 0.7s;
-}
-.sidebar-section:nth-child(3) .sidebar-nav-item:nth-child(2) {
-  animation-delay: 0.8s;
-}
-
 /* Smooth scrolling */
 .sidebar {
   scroll-behavior: smooth;
@@ -450,10 +414,5 @@
   .sidebar-logout-btn {
     transition: none;
     animation: none;
-  }
-
-  .sidebar-nav-item {
-    opacity: 1;
-    transform: none;
   }
 }

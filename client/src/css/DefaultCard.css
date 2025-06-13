@@ -3,40 +3,40 @@
   border-radius: 20px;
   padding: 32px;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transform: translateZ(0); /* Enable GPU acceleration */
 }
 
 .default-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
   transform: rotate(45deg);
-  transition: all 0.8s ease;
   opacity: 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .default-card:hover::before {
   opacity: 1;
-  transform: rotate(45deg) translate(100%, 100%);
-}
-
-.default-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .default-card-text {
@@ -46,7 +46,7 @@
   z-index: 2;
   position: relative;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   letter-spacing: -0.5px;
 }
 
@@ -64,26 +64,20 @@
   border-radius: 16px;
   object-fit: cover;
   opacity: 0.9;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.default-card:hover .default-card-img {
-  opacity: 1;
-  transform: scale(1.05) rotate(2deg);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  transform: translateZ(0); /* Enable GPU acceleration */
 }
 
 /* Add some depth with gradient overlays */
 .default-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+  background: linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -128,11 +122,11 @@
     padding: 24px;
     border-radius: 16px;
   }
-  
+
   .default-card-text {
     font-size: 18px;
   }
-  
+
   .default-card-img {
     width: 60px;
     height: 60px;
@@ -145,11 +139,11 @@
     height: 120px;
     padding: 20px;
   }
-  
+
   .default-card-text {
     font-size: 16px;
   }
-  
+
   .default-card-img {
     width: 50px;
     height: 50px;

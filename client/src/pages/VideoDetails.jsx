@@ -7,106 +7,73 @@ import {
   Pause,
   VolumeUp,
   Fullscreen,
+  ThumbUpRounded,
+  ShareRounded,
 } from "@mui/icons-material";
+import "../css/VideoDetails.css";
 
 const VideoDetails = () => {
   const { id } = useParams();
 
   return (
-    <div style={{ padding: "20px", maxWidth: "1200px", margin: "0 auto" }}>
+    <div className="video-details-main">
       {/* Video Player */}
-      <div
-        style={{
-          width: "100%",
-          height: "500px",
-          backgroundColor: "#000",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <PlayArrow style={{ fontSize: "80px", color: "white" }} />
+      <div className="video-player-container">
+        <PlayArrow className="video-play-button" />
       </div>
-
       {/* Video Controls */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          marginBottom: "20px",
-        }}
-      >
+      <div className="video-controls">
         <IconButton>
           <PlayArrow />
         </IconButton>
         <IconButton>
           <VolumeUp />
         </IconButton>
-        <div
-          style={{
-            flex: 1,
-            height: "4px",
-            backgroundColor: "#ccc",
-            borderRadius: "2px",
-          }}
-        >
-          <div
-            style={{
-              width: "30%",
-              height: "100%",
-              backgroundColor: "#be1adb",
-              borderRadius: "2px",
-            }}
-          ></div>
+        <div className="video-progress-bar">
+          <div className="video-progress-fill"></div>
         </div>
         <IconButton>
           <Fullscreen />
         </IconButton>
-      </div>
-
+      </div>{" "}
       {/* Video Info */}
-      <div>
-        <h1 style={{ marginBottom: "10px" }}>Sample Video Title</h1>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "15px",
-            marginBottom: "20px",
-          }}
-        >
-          <Avatar>A</Avatar>
-          <div>
-            <div style={{ fontWeight: "bold" }}>Channel Name</div>
-            <div style={{ fontSize: "14px", opacity: 0.7 }}>
-              1.2M subscribers
+      <div className="video-info">
+        <h1 className="video-title">Sample Video Title</h1>
+        <div className="video-meta">
+          <div className="video-creator">
+            <Avatar className="video-creator-avatar">A</Avatar>
+            <div className="video-creator-info">
+              <h3>Channel Name</h3>
+              <p>1.2M subscribers</p>
             </div>
           </div>
-          <IconButton style={{ marginLeft: "auto" }}>
-            <FavoriteRounded />
-          </IconButton>
+          <div className="video-stats">
+            <span>1.5M views</span>
+            <span>•</span>
+            <span>2 days ago</span>
+          </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: "rgba(255,255,255,0.1)",
-            padding: "15px",
-            borderRadius: "8px",
-            marginBottom: "20px",
-          }}
-        >
-          <div style={{ fontWeight: "bold", marginBottom: "10px" }}>
-            10,234 views • 2 days ago
-          </div>
-          <p>
-            This is a sample video description. In a real application, this
-            would contain the actual video description, tags, and other
-            metadata. The video player above would be connected to a real video
-            streaming service.
-          </p>
+        <p className="video-description">
+          This is a sample video description that explains what the video is
+          about. It provides context and additional information for viewers to
+          understand the content better. In a real application, this would
+          contain the actual video description, tags, and other metadata.
+        </p>
+
+        <div className="video-actions">
+          <button className="video-action-btn">
+            <ThumbUpRounded />
+            <span>Like</span>
+          </button>
+          <button className="video-action-btn">
+            <ShareRounded />
+            <span>Share</span>
+          </button>
+          <button className="video-action-btn">
+            <FavoriteRounded />
+            <span>Save</span>
+          </button>
         </div>
       </div>
     </div>

@@ -3,9 +3,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  background: var(--glass-strong);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-bottom: 1px solid var(--glass-border);
   position: fixed;
   top: 0;
   left: 0;
@@ -13,6 +14,7 @@
   width: 100%;
   z-index: 300;
   box-sizing: border-box;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-left {
@@ -78,11 +80,17 @@
   color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: 8px;
+  border-radius: 10px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .navbar-notifications:hover {
   color: var(--primary);
   transform: scale(1.1);
+  background: var(--glass-strong);
 }
 
 .navbar-button {
@@ -90,7 +98,10 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  border: 2px solid var(--primary);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid var(--glass-border);
   border-radius: 12px;
   color: var(--primary);
   font-weight: 500;
@@ -102,7 +113,34 @@
   background: var(--primary);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 15px rgba(254, 119, 67, 0.3);
+}
+
+/* Theme toggle button */
+.navbar-theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.theme-toggle-btn {
+  color: var(--text-primary) !important;
+  background: var(--glass-strong) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 12px !important;
+  width: 44px !important;
+  height: 44px !important;
+  transition: all 0.3s ease !important;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--primary) !important;
+  color: white !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(254, 119, 67, 0.3);
 }
 
 /* Mobile styles */

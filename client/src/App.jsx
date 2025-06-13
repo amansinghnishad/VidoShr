@@ -18,25 +18,26 @@ import VideoDetails from "./pages/VideoDetails";
 
 // Theme utilities
 import { darkTheme, lightTheme } from "./utils/Themes";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   // Create MUI theme based on our custom theme
   const muiTheme = createTheme({
     palette: {
-      mode: darkMode ? "dark" : "light",
+      mode: isDarkMode ? "dark" : "light",
       primary: {
-        main: darkMode ? darkTheme.primary : lightTheme.primary,
+        main: isDarkMode ? darkTheme.primary : lightTheme.primary,
       },
       background: {
-        default: darkMode ? darkTheme.bg : lightTheme.bg,
-        paper: darkMode ? darkTheme.bgLight : lightTheme.bgLight,
+        default: isDarkMode ? darkTheme.bg : lightTheme.bg,
+        paper: isDarkMode ? darkTheme.bgLight : lightTheme.bgLight,
       },
       text: {
-        primary: darkMode ? darkTheme.text_primary : lightTheme.text_primary,
-        secondary: darkMode
+        primary: isDarkMode ? darkTheme.text_primary : lightTheme.text_primary,
+        secondary: isDarkMode
           ? darkTheme.text_secondary
           : lightTheme.text_secondary,
       },
@@ -49,17 +50,22 @@ function App() {
       <Router>
         <div
           className={`app-container ${
-            darkMode ? "dark-theme" : "light-theme"
+            isDarkMode ? "dark-theme" : "light-theme"
           } ${!menuOpen ? "sidebar-closed" : ""}`}
         >
           <Sidebar
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
-            darkMode={darkMode}
-            setDarkMode={setDarkMode}
+            darkMode={isDarkMode}
+            setDarkMode={toggleTheme}
           />
           <div className="app-frame">
-            <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+            <NavBar
+              menuOpen={menuOpen}
+              setMenuOpen={setMenuOpen}
+              darkMode={isDarkMode}
+              toggleTheme={toggleTheme}
+            />
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/search" element={<Search />} />

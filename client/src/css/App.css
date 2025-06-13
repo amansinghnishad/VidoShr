@@ -15,7 +15,10 @@
   flex: 1;
   position: relative;
   margin-left: 0;
-  margin-top: 72px; /* Account for fixed navbar height */
+  margin-top: 72px;
+  height: calc(100vh - 72px);
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
   transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -23,58 +26,68 @@
 @media (min-width: 769px) {
   .app-frame {
     margin-left: 70px; /* Account for collapsed sidebar width */
-    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: calc(100vw - 70px); /* Adjust width for collapsed sidebar */
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* When sidebar is expanded, adjust margin */
   body.sidebar-expanded .app-frame {
     margin-left: 280px;
+    width: calc(100vw - 280px); /* Adjust width for expanded sidebar */
   }
 }
 
 @media (max-width: 768px) {
   .app-frame {
     margin-left: 0; /* No margin on mobile */
+    width: 100vw; /* Full width on mobile */
+    height: calc(100vh - 72px); /* Account for navbar height */
   }
 }
 
 /* Theme classes */
 .dark-theme {
-  --bg: #0a0e1a;
-  --bg-light: #12172b;
-  --bg-card: #1a1f35;
-  --primary: #7c3aed;
-  --secondary: #ec4899;
-  --accent: #06d6a0;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --border: #334155;
-  --glass: rgba(255, 255, 255, 0.15);
+  --bg: #000000;
+  --bg-light: #000000;
+  --bg-card: #000000;
+  --primary: #fe7743;
+  --secondary: #000000;
+  --accent: #fe7743;
+  --text-primary: #efeeea;
+  --text-secondary: #efeeea;
+  --text-muted: #999999;
+  --border: rgba(239, 238, 234, 0.1);
+  --glass: rgba(239, 238, 234, 0.05);
+  --glass-strong: rgba(239, 238, 234, 0.1);
+  --glass-border: rgba(239, 238, 234, 0.15);
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient: linear-gradient(135deg, #fe7743 0%, #000000 100%);
 }
 
 .light-theme {
-  --bg: #fefefe;
-  --bg-light: #f8fafc;
+  --bg: #efeeea;
+  --bg-light: #ffffff;
   --bg-card: #ffffff;
-  --primary: #7c3aed;
-  --secondary: #ec4899;
-  --accent: #06d6a0;
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --glass: rgba(255, 255, 255, 0.8);
+  --primary: #fe7743;
+  --secondary: #273f4f;
+  --accent: #fe7743;
+  --text-primary: #000000;
+  --text-secondary: #273f4f;
+  --text-muted: #666666;
+  --border: rgba(0, 0, 0, 0.1);
+  --glass: rgba(255, 255, 255, 0.25);
+  --glass-strong: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.3);
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  --gradient: linear-gradient(135deg, #fe7743 0%, #273f4f 100%);
 }
 
 /* Apply theme variables */
 .app-container {
   background: var(--bg);
   color: var(--text-primary);
+  position: relative;
 }
 
 .app-container::before {
@@ -85,7 +98,29 @@
   right: 0;
   bottom: 0;
   background: var(--gradient);
-  opacity: 0.03;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Add subtle noise texture for glassmorphism depth */
+.app-container::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      rgba(254, 119, 67, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(254, 119, 67, 0.05) 0%,
+      transparent 50%
+    );
   pointer-events: none;
   z-index: -1;
 }
@@ -96,7 +131,7 @@
 
 /* Modern button styles */
 .btn-primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
   color: white;
   border: none;
   padding: 12px 24px;
@@ -104,18 +139,22 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 15px rgba(254, 119, 67, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 25px rgba(254, 119, 67, 0.4);
 }
 
 .btn-secondary {
-  background: transparent;
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   color: var(--text-primary);
-  border: 2px solid var(--border);
+  border: 2px solid var(--glass-border);
   padding: 10px 22px;
   border-radius: 12px;
   font-weight: 500;
@@ -127,14 +166,64 @@
   border-color: var(--primary);
   color: var(--primary);
   transform: translateY(-1px);
+  background: var(--glass-strong);
 }
 
-/* Glass morphism effects */
+/* =============================================================================
+   GLASSMORPHISM UTILITY CLASSES
+   ============================================================================= */
+
+/* Basic glassmorphism effect */
 .glass-effect {
   background: var(--glass);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+/* Strong glassmorphism effect */
+.glass-effect-strong {
+  background: var(--glass-strong);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* Subtle glassmorphism for cards */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation glassmorphism */
+.glass-nav {
+  background: var(--glass-strong);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Button glassmorphism */
+.glass-button {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+}
+
+.glass-button:hover {
+  background: var(--glass-strong);
+  border-color: var(--primary);
 }
 
 /* Responsive design */
