@@ -10,7 +10,12 @@ import HeadphonesIcon from "@mui/icons-material/Headphones";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-const VideoCards = ({ type = "video", data, index = 0 }) => {
+const VideoCards = ({
+  type = "video",
+  data,
+  index = 0,
+  showFavoriteButton = true,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -60,7 +65,6 @@ const VideoCards = ({ type = "video", data, index = 0 }) => {
             transition: { type: "spring", stiffness: 400, damping: 17 },
           }}
         />
-
         {/* Category Badge */}
         {videoData.tags && videoData.tags[0] && (
           <motion.div
@@ -72,7 +76,6 @@ const VideoCards = ({ type = "video", data, index = 0 }) => {
             {videoData.tags[0]}
           </motion.div>
         )}
-
         {/* Duration Badge */}
         <motion.div
           className="video-duration"
@@ -81,55 +84,62 @@ const VideoCards = ({ type = "video", data, index = 0 }) => {
           transition={{ delay: index * 0.1 + 0.3 }}
         >
           {videoData.duration}
-        </motion.div>
-
+        </motion.div>{" "}
         {/* Favorite Button */}
-        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-          <IconButton
-            className="video-card-favorite"
-            onClick={() => setIsLiked(!isLiked)}
-          >
-            <AnimatePresence mode="wait">
-              {isLiked ? (
-                <motion.div
-                  key="liked"
-                  initial={{ rotate: -180, scale: 0 }}
-                  animate={{ rotate: 0, scale: 1 }}
-                  exit={{ rotate: 180, scale: 0 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <FavoriteIcon style={{ color: "#FE7743" }} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="not-liked"
-                  initial={{ rotate: 180, scale: 0 }}
-                  animate={{ rotate: 0, scale: 1 }}
-                  exit={{ rotate: -180, scale: 0 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <FavoriteBorderIcon />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </IconButton>
-        </motion.div>
-
+        {showFavoriteButton && (
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <IconButton
+              className="video-card-favorite"
+              onClick={() => setIsLiked(!isLiked)}
+            >
+              <AnimatePresence mode="wait">
+                {isLiked ? (
+                  <motion.div
+                    key="liked"
+                    initial={{ rotate: -180, scale: 0 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    exit={{ rotate: 180, scale: 0 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <FavoriteIcon style={{ color: "#FE7743" }} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="not-liked"
+                    initial={{ rotate: 180, scale: 0 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    exit={{ rotate: -180, scale: 0 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <FavoriteBorderIcon />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </IconButton>
+          </motion.div>
+        )}{" "}
         {/* Play Overlay */}
         <AnimatePresence>
           {isHovered && (
             <motion.div
               className="play-icon"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              exit={{ scale: 0, rotate: 180 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              whileHover={{
-                scale: 1.1,
-                transition: { type: "spring", stiffness: 400, damping: 17 },
-              }}
             >
-              {type === "video" ? <PlayArrowIcon /> : <HeadphonesIcon />}
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                exit={{ scale: 0, rotate: 180 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                whileHover={{
+                  scale: 1.1,
+                  transition: { type: "spring", stiffness: 400, damping: 17 },
+                }}
+              >
+                {type === "video" ? <PlayArrowIcon /> : <HeadphonesIcon />}
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

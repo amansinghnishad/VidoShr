@@ -49,11 +49,36 @@
   -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid var(--glass-border);
   position: relative;
   cursor: pointer;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   transform: translateZ(0); /* Enable GPU acceleration */
+  animation: float 6s ease-in-out infinite;
+  animation-delay: calc(var(--index, 0) * 0.5s);
+}
+
+.video-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border-radius: 20px;
+}
+
+.video-card:hover::before {
+  opacity: 1;
 }
 
 .video-card::before {
@@ -107,9 +132,19 @@
 /* Play Icon Overlay */
 .play-icon {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.play-icon > div {
   background: var(--glass-strong);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -121,13 +156,11 @@
   justify-content: center;
   color: white;
   border: 2px solid var(--glass-border);
-  z-index: 2;
-  transform: translateZ(0); /* Enable GPU acceleration */
+  pointer-events: auto;
 }
 
 .play-icon svg {
   font-size: 28px;
-  margin-left: 4px; /* Slight offset for play icon visual balance */
 }
 
 /* Video Duration Badge */
@@ -201,12 +234,6 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 2px solid var(--border);
-  transition: border-color 0.3s ease;
-}
-
-.video-card:hover .video-card-creator-avatar {
-  border-color: var(--primary);
 }
 
 .video-card-creator-details {
@@ -270,6 +297,53 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   z-index: 2;
+}
+
+/* Animated Background Elements */
+.video-card-bg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  mix-blend-mode: multiply;
+}
+
+.bg-circle-1 {
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(45deg, #fe7743, #ff6b6b);
+  top: -20%;
+  left: -10%;
+  opacity: 0.4;
+}
+
+.bg-circle-2 {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  top: 40%;
+  right: -15%;
+  opacity: 0.3;
+}
+
+.bg-circle-3 {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(225deg, #a770ef, #cf91ff);
+  bottom: -10%;
+  left: 60%;
+  opacity: 0.5;
 }
 
 /* Responsive Design */
